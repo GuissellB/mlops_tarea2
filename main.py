@@ -30,3 +30,14 @@ async def get_user(user_id: str):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e)
         )
+
+@app.post("/users",tags=["users"])
+async def create_user(data:dict):
+    id =str(uuid.uuid4())
+    name=data["name"]
+    email=data["email"]
+    users_db[id]={"name":name,"email":email}
+
+    return{ "message":f"user,{name},withemail{email}"
+                      f"createdsuccessfullywiththeID{id}",
+            }
